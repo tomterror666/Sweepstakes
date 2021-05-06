@@ -21,7 +21,7 @@ export function Main({ navigation }) {
   }, [])
 
   useEffect(() => {
-    getNumbers(1950);
+    getNumbers(2010);
   }, []);
 
   return (

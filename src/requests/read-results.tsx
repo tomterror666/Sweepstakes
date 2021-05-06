@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { LottoEntry } from '../models/lotto-entry';
-import { LottoWeek } from '../models/lotto-week';
+import { LottoDraw } from '../models/lotto-draw';
 import { LottoYear } from '../models/lotto-year';
 import { Lottory } from '../models/lottory';
 
@@ -47,7 +47,7 @@ export const readResults = async (countingYear: number): Promise<Lottory | null>
 
         let week = year.getWeek(entry.id);
         if (!week) {
-          week = new LottoWeek(entry.id);
+          week = new LottoDraw(entry.id);
 
           year.addWeek(week);
         }
