@@ -1,0 +1,6 @@
+module Pods_sweepstakes_sweepstakesTests {
+  umbrella header "Pods-sweepstakes-sweepstakesTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

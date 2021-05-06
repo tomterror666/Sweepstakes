@@ -1,0 +1,14 @@
+com/sweepstakes/MainApplication.java
+ com.sweepstakes.MainApplication
+ com.sweepstakes.MainApplication$1
+com/sweepstakes/MainActivity.java
+ com.sweepstakes.MainActivity
+com/sweepstakes/ReactNativeFlipper.java
+ com.sweepstakes.ReactNativeFlipper
+ com.sweepstakes.ReactNativeFlipper$1
+ com.sweepstakes.ReactNativeFlipper$2
+ com.sweepstakes.ReactNativeFlipper$2$1
+com/sweepstakes/BuildConfig.java
+ com.sweepstakes.BuildConfig
+com/facebook/react/PackageList.java
+ com.facebook.react.PackageList
