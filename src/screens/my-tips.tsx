@@ -3,7 +3,7 @@ import { SafeAreaView, Text, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { TipList } from '../views/TipList';
 
-export function MyTips() {
+export function MyTips({ navigation }) {
   const [myTips, setMyTips] = useState(null);
 
   const readMyTips = useCallback(async () => {
@@ -20,12 +20,17 @@ export function MyTips() {
     readMyTips();
   }, []);
 
+  const openAddTip = () => {
+    navigation.navigate('Add Tip');
+  }
+
   return (
     <SafeAreaView style={{
       flex: 1,
       flexDirection: "column"
     }}> 
-      <TouchableOpacity style={{backgroundColor: "#7f7", textAlign: 'center', }}>
+      <TouchableOpacity style={{backgroundColor: "#7f7", textAlign: 'center', }} 
+                        onPress={openAddTip}>
         <Text>Neue Tipps hinzufügen</Text>
       </TouchableOpacity>
       {myTips === null ? 
