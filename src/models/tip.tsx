@@ -25,6 +25,23 @@ export class Tip {
     this.superNumber = !another ? null : another.superNumber;
   }
 
+  static constructTip(numbers: number[], superNumber: number, startDate: Date = new Date(), duration: number = 28): Tip {
+    const newTip = new Tip(null);
+
+    newTip.startDate = startDate;
+    newTip.duration = duration;
+    newTip.numberOne = numbers[0];
+    newTip.numberTwo = numbers[1];
+    newTip.numberThree = numbers[2];
+    newTip.numberFour = numbers[3];
+    newTip.numberFife = numbers[4];
+    newTip.numberSix = numbers[5];
+    newTip.superNumber = superNumber;
+    newTip.additionalNumber = -1;
+
+    return newTip;
+  }
+
   isWinning = (entry: LottoEntry): boolean => {
     return this.numberOne === entry.value ||
            this.numberTwo === entry.value ||

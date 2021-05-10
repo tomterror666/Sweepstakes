@@ -6,17 +6,18 @@ import { TipListCell } from './TipListCell';
 interface IProps {
   styleScroll?: StyleProp<ViewStyle>;
   style?: StyleProp<ViewStyle>;
-  items: typeof Tip[];
+  tips: Tip[];
   isScrollable?: boolean;
 }
 
-export function TipList({ styleScroll, style, items = [], isScrollable = false }: IProps) {
-  const getEntries = (items: typeof Tip[]) =>
-    items.map((item, index) => <TipListCell numberOfTip={index} />);
+export function TipList({ styleScroll, style, tips = [], isScrollable = false }: IProps) {
+
+  const getEntries = (items: Tip[]) => 
+    items.map((item, index) => <TipListCell key={index} numberOfTip={index + 1} tip={item}/>);
 
   return (
     <ScrollView style={[styles.fill, styleScroll]}>
-      <View style={style}>{getEntries(items)}</View>
+      <View style={style}>{getEntries(tips)}</View>
     </ScrollView>
   );
 }

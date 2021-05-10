@@ -1,0 +1,6 @@
+{
+  "prettier.configPath": "./",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "js/ts.implicitProjectConfig.checkJs": true
+}

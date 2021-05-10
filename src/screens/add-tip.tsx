@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { SafeAreaView, View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Tip } from '../models/tip';
-import { Separator } from '../views/Separator';
+import { Separator } from "../views/Separator";
 import { TipNumber } from '../views/TipNumber';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export function AddTip({ navigation }) {
   const [tips, setTips] = useState([]);
@@ -41,13 +42,32 @@ export function AddTip({ navigation }) {
     return superNumber === value;
   };
 
-  const useTip = () => {
+  const storeMyTip = async () => {
+    try {
+      const newTip = Tip.constructTip(tips, superNumber);
+      const tipsJson = await AsyncStorage.getItem('myTips');
+      let currentTips: Tip[] = JSON.parse(tipsJson);
+      
+      if (currentTips) {
+        currentTips.push(newTip);
+      } else {
+        currentTips = [newTip];
+      }
+
+      await AsyncStorage.setItem('myTips', JSON.stringify(currentTips));
+    } catch ( error ) {
+      console.log(error);
+    }
+  };
+
+  const useTip = async () => {
+    await storeMyTip();
     navigation.goBack();
   };
 
   return (
     <SafeAreaView>
-      <View style={styles.numberLine}>
+      <View style={styles.firstNumberLine}>
         <TipNumber value={1} isMarked={isSelected(1)} onPress={numberChanged} />
         <TipNumber value={2} isMarked={isSelected(2)} onPress={numberChanged} />
         <TipNumber value={3} isMarked={isSelected(3)} onPress={numberChanged} />
@@ -123,6 +143,14 @@ export function AddTip({ navigation }) {
         <TipNumber value={8} isMarked={superNumberSelected(8)} onPress={superNumberChanged} margin={5} />
         <TipNumber value={9} isMarked={superNumberSelected(9)} onPress={superNumberChanged} margin={5} />
       </View>
+      <View style={styles.textInput}>
+        <Text style={styles.introText}>Erstellungsdatum:</Text>
+        <TouchableOpacity style={styles.numberInputText}></TouchableOpacity>
+      </View>
+      <View style={styles.textInput}>
+        <Text style={styles.introText}>Gültigkeitsdauer:</Text>
+        <TouchableOpacity style={styles.numberInputText}></TouchableOpacity>
+      </View>
       <TouchableOpacity style={[styles.button, {backgroundColor: tipFinished ? '#53f' : '#ccf',}]} onPress={useTip} disabled={!tipFinished}>
         <View style={{flex: 1}} />
         <Text style={styles.buttonText}>Use</Text>
@@ -133,16 +161,20 @@ export function AddTip({ navigation }) {
 };
 
 const styles = StyleSheet.create({
+  firstNumberLine: {
+    flexDirection: 'row',
+    marginTop: 10,
+    marginHorizontal: 5,
+  },
   numberLine: {
     flexDirection: 'row',
-    height: 40,
-    marginVertical: 5,
-    marginHorizontal: 10,
+    marginHorizontal: 5,
   },
   superZahlLine: {
     flexDirection: 'row',
-    height: 40,
+    //height: 40,
     marginTop: 5,
+    marginHorizontal: 5,
   },
   button: {
     margin: 10,
@@ -153,5 +185,22 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#ffe',
     textAlign: 'center',
-  }
+  },
+  textInput: {
+    flexDirection: 'row',
+    padding: 10,
+  },
+  introText: {
+    fontWeight: '600',
+    fontSize: 16,
+  },
+  numberInputText: {
+    marginLeft: 5,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#000',
+    borderRadius: 4,
+    fontSize: 16,
+    flex: 1,
+  },
 });

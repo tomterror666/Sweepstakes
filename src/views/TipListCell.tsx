@@ -1,16 +1,36 @@
 import React from 'react';
-import { StyleProp, StyleSheet, ViewStyle, TextStyle, Text, View, } from 'react-native';
+import { StyleSheet, ViewStyle, TextStyle, Text, View, } from 'react-native';
+import { Tip } from '../models/tip';
+import { getFormattedDateString } from '../utils/get-formatted-date-string';
 
 interface IProps {
-  numberOfTip: number;
+  numberOfTip?: number;
+  tip: Tip;
 };
 
-export function TipListCell({ numberOfTip }: IProps) {
+export function TipListCell({ numberOfTip = 1, tip }: IProps) {
+  console.log(777, numberOfTip);
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.nameText}>`${numberOfTip}.Tip`</Text>
-        <Text style={styles.dateText}>17.05.2021</Text>
+        <Text style={styles.nameText}>{numberOfTip}.Tip</Text>
+        <View style={styles.tipContainer}>
+          <Text style={styles.introText}>Zahlen:</Text>
+          <Text style={styles.numberText}>{tip.numberOne}</Text>
+          <Text style={styles.numberText}>{tip.numberTwo}</Text>
+          <Text style={styles.numberText}>{tip.numberThree}</Text>
+          <Text style={styles.numberText}>{tip.numberFour}</Text>
+          <Text style={styles.numberText}>{tip.numberFife}</Text>
+          <Text style={styles.numberText}>{tip.numberSix}</Text>
+        </View>
+        <View style={styles.tipContainer}>
+          <Text style={styles.introText}>Superzahl:</Text>
+          <Text style={styles.numberText}>{tip.superNumber}</Text>
+        </View>
+        <View style={styles.tipContainer}>
+          <Text style={styles.introText}>Erstellt am:</Text>
+          <Text style={styles.numberText}>{getFormattedDateString(tip.startDate.toString())}</Text>
+        </View>
       </View>
     </>
   );
@@ -18,11 +38,24 @@ export function TipListCell({ numberOfTip }: IProps) {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'flex-start',
+    backgroundColor: '#eee',
+  },
+  tipContainer: {
     flexDirection: 'row',
-    alignItems: 'left',
-    backgroundColor: '#eee',},
+    alignItems: 'flex-start',
+  },
   nameText: {
     flex: 1,
+    fontWeight: '800',
+    fontSize: 20,
   },
-  dateText: {},
+  introText: {
+    fontWeight: '600',
+    fontSize: 16,
+  },
+  numberText: {
+    paddingHorizontal: 10,
+    fontSize: 16,
+  },
 });
