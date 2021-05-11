@@ -14,6 +14,8 @@ target 'sweepstakes' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
+  pod 'react-native-date-picker', :path => '../node_modules/react-native-date-picker'
+
   target 'sweepstakesTests' do
     inherit! :complete
     # Pods for testing
