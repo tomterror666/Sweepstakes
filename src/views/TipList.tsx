@@ -9,12 +9,13 @@ interface IProps {
   style?: StyleProp<ViewStyle>;
   tips: Tip[];
   isScrollable?: boolean;
+  removeTip: (tip: Tip) => void;
 }
 
-export function TipList({ styleScroll, style, tips = [], isScrollable = false }: IProps) {
+export function TipList({ styleScroll, style, tips = [], isScrollable = false, removeTip }: IProps) {
 
   const getEntries = (items: Tip[]) =>
-    items.map((item, index) => <TipListCell key={index} numberOfTip={index + 1} tip={item}/>);
+    items.map((item, index) => <TipListCell key={index} numberOfTip={index + 1} tip={item} removeTip={removeTip}/>);
 
   return (
     <ScrollView style={[styles.fill, styleScroll]}>

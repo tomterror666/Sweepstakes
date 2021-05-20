@@ -29,7 +29,7 @@ export function AddTip({ navigation }) {
     }
 
     setTips(newTips);
-    setTipFinished(newTips.length == 6 && superNumber != -1);
+    setTipFinished(newTips.length === 6 && superNumber !== -1 && duration !== -1);
   };
 
   const superNumberChanged = (value: number) => {
@@ -38,7 +38,7 @@ export function AddTip({ navigation }) {
       setTipFinished(false);
     } else {
       setSuperNumber(value);
-      setTipFinished(tips.length == 6);
+      setTipFinished(tips.length == 6 && duration !== -1);
     }
   };
 
@@ -52,7 +52,7 @@ export function AddTip({ navigation }) {
 
   const storeMyTip = async () => {
     try {
-      const newTip = Tip.constructTip(tips, superNumber);
+      const newTip = Tip.constructTip(tips, superNumber, startDate, duration);
       const tipsJson = await AsyncStorage.getItem('myTips');
       let currentTips: Tip[] = JSON.parse(tipsJson);
 
@@ -83,6 +83,7 @@ export function AddTip({ navigation }) {
              {
                text: 'Übernehmen', onPress: (text) => {
                  setDuration(Number(text));
+                 setTipFinished(tips.length === 6 && superNumber !== -1);
                },
              },
            ],

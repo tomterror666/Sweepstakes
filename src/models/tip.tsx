@@ -28,6 +28,8 @@ export class Tip {
   static constructTip(numbers: number[], superNumber: number, startDate: Date = new Date(), duration: number = 28): Tip {
     const newTip = new Tip(null);
 
+    numbers.sort((a: number, b: number) => a > b);
+
     newTip.startDate = startDate;
     newTip.duration = duration;
     newTip.numberOne = numbers[0];
@@ -50,4 +52,4 @@ export class Tip {
            this.numberFife === entry.value ||
            this.numberSix === entry.value;
   }
-} 
+}

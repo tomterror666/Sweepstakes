@@ -1,20 +1,26 @@
 // @ts-ignore
 import React from 'react';
-import { StyleSheet, ViewStyle, TextStyle, Text, View, } from 'react-native';
+import { StyleSheet, ViewStyle, TextStyle, Text, View, TouchableOpacity } from 'react-native';
 import { Tip } from '../models/tip';
 import { getFormattedDateString } from '../utils/get-formatted-date-string';
 
 interface IProps {
   numberOfTip?: number;
   tip: Tip;
+  removeTip: (tip: Tip) => void;
 };
 
-export function TipListCell({ numberOfTip = 1, tip }: IProps) {
+export function TipListCell({ numberOfTip = 1, tip, removeTip }: IProps) {
   console.log(777, numberOfTip);
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.nameText}>{numberOfTip}.Tip</Text>
+        <View style={styles.nameContainer}>
+          <Text style={styles.nameText}>{numberOfTip}.Tip</Text>
+          <TouchableOpacity style={styles.removeButton} onPress={() => {removeTip(tip)}}>
+            <Text style={styles.removeButtonText}>x</Text>
+          </TouchableOpacity>
+        </View>
         <View style={styles.tipContainer}>
           <Text style={styles.introText}>Zahlen:</Text>
           <Text style={styles.numberText}>{tip.numberOne}</Text>
@@ -32,6 +38,10 @@ export function TipListCell({ numberOfTip = 1, tip }: IProps) {
           <Text style={styles.introText}>Erstellt am:</Text>
           <Text style={styles.numberText}>{getFormattedDateString(tip.startDate.toString())}</Text>
         </View>
+        <View style={styles.tipContainer}>
+          <Text style={styles.introText}>Gültigkeitsdauer:</Text>
+          <Text style={styles.numberText}>{tip.duration}</Text>
+        </View>
       </View>
     </>
   );
@@ -42,6 +52,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     backgroundColor: '#eee',
   },
+  nameContainer: {
+    flexDirection: 'row',
+  },
   tipContainer: {
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -50,6 +63,16 @@ const styles = StyleSheet.create({
     flex: 1,
     fontWeight: '800',
     fontSize: 20,
+  },
+  removeButton: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: 'transparent',
+  },
+  removeButtonText: {
+    margin: 4,
+    textAlign: 'center',
   },
   introText: {
     fontWeight: '600',
