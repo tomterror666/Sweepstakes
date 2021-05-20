@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from 'react';
+// @ts-ignore
+import React, { useState } from 'react';
 import { SafeAreaView, View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Tip } from '../models/tip';
 import { Separator } from '../views/Separator';
@@ -19,7 +20,7 @@ export function AddTip({ navigation }) {
 
   const numberChanged = (value: number) => {
     const newTips = tips.slice();
-    
+
     if (newTips.length < 7 && newTips.includes(value)) {
       const indexToDelete = newTips.indexOf(value);
       newTips.splice(indexToDelete, 1);
@@ -54,7 +55,7 @@ export function AddTip({ navigation }) {
       const newTip = Tip.constructTip(tips, superNumber);
       const tipsJson = await AsyncStorage.getItem('myTips');
       let currentTips: Tip[] = JSON.parse(tipsJson);
-      
+
       if (currentTips) {
         currentTips.push(newTip);
       } else {
@@ -73,7 +74,7 @@ export function AddTip({ navigation }) {
   };
 
   const askForValidPeriod = () => {
-    Prompt('Gültigkeit:', 
+    Prompt('Gültigkeit:',
            'Wie lange ist der Tipp gültig?',
            [
              {
@@ -97,7 +98,7 @@ export function AddTip({ navigation }) {
   const closeAskForStartDate = () => {setAskForStartingDate(false)};
 
   return (
-    <SafeAreaView>{askForStartingDate ? 
+    <SafeAreaView>{askForStartingDate ?
       <>
         <DatePicker date={startDate}
                   mode={'date'}
@@ -105,10 +106,10 @@ export function AddTip({ navigation }) {
                   textColor={'#77f'}
                   androidVariant={'nativeAndroid'}
                   onDateChange={setStartDate} />
-        <TouchableOpacity style={[styles.button, {backgroundColor: '#53f',}]} 
+        <TouchableOpacity style={[styles.button, {backgroundColor: '#53f',}]}
                           onPress={closeAskForStartDate}>
           <View style={{flex: 1}} />
-          <Text style={styles.buttonText}>Use</Text>
+          <Text style={styles.buttonText}>Anwenden</Text>
           <View style={{flex: 1}} />
         </TouchableOpacity>
       </> :
@@ -203,17 +204,17 @@ export function AddTip({ navigation }) {
             <Text>{duration === -1 ? '' : duration}</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={[styles.button, {backgroundColor: tipFinished ? '#53f' : '#ccf',}]} 
-                          onPress={useTip} 
+        <TouchableOpacity style={[styles.button, {backgroundColor: tipFinished ? '#53f' : '#ccf',}]}
+                          onPress={useTip}
                           disabled={!tipFinished}>
           <View style={{flex: 1}} />
-          <Text style={styles.buttonText}>Use</Text>
+          <Text style={styles.buttonText}>Anwenden</Text>
           <View style={{flex: 1}} />
         </TouchableOpacity>
       </>}
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   firstNumberLine: {
@@ -233,7 +234,6 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 10,
-    width: 44,
     height: 44,
     borderRadius: 22,
   },

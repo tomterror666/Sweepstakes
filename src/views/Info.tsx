@@ -1,3 +1,4 @@
+// @ts-ignore
 import React from 'react';
 import { StyleProp, StyleSheet, ViewStyle, TextStyle, Text, View, } from 'react-native';
 
@@ -28,13 +29,13 @@ export function Info({ style }: IProps) {
 
 const styles = StyleSheet.create({
   textLine: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingTop: 15,
   },
   lastTextLine: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 15,

@@ -1,3 +1,4 @@
+// @ts-ignore
 import React from 'react';
 import { StyleSheet, ViewStyle, TextStyle, Text, View, } from 'react-native';
 import { Tip } from '../models/tip';

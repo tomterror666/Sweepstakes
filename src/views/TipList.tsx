@@ -1,3 +1,4 @@
+// @ts-ignore
 import React from 'react';
 import { View, ScrollView, StyleProp, ViewStyle, StyleSheet } from 'react-native';
 import { Tip } from '../models/tip';
@@ -12,7 +13,7 @@ interface IProps {
 
 export function TipList({ styleScroll, style, tips = [], isScrollable = false }: IProps) {
 
-  const getEntries = (items: Tip[]) => 
+  const getEntries = (items: Tip[]) =>
     items.map((item, index) => <TipListCell key={index} numberOfTip={index + 1} tip={item}/>);
 
   return (

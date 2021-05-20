@@ -1,3 +1,4 @@
+// @ts-ignore
 import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { getCurrentTime } from '../utils/get-current-time';
