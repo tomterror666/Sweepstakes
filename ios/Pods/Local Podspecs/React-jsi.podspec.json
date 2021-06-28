@@ -22,18 +22,10 @@
   "header_dir": "jsi",
   "default_subspecs": "Default",
   "dependencies": {
-    "boost-for-react-native": [
-      "1.63.0"
-    ],
-    "DoubleConversion": [
-
-    ],
-    "RCT-Folly": [
-      "2020.01.13.00"
-    ],
-    "glog": [
-
-    ]
+    "boost-for-react-native": ["1.63.0"],
+    "DoubleConversion": [],
+    "RCT-Folly": ["2020.01.13.00"],
+    "glog": []
   },
   "subspecs": [
     {

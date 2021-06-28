@@ -21,26 +21,12 @@
     "HEADER_SEARCH_PATHS": "\"$(PODS_TARGET_SRCROOT)/React/CoreModules\" \"$(PODS_ROOT)/RCT-Folly\""
   },
   "dependencies": {
-    "FBReactNativeSpec": [
-      "0.64.0"
-    ],
-    "RCT-Folly": [
-      "2020.01.13.00"
-    ],
-    "RCTTypeSafety": [
-      "0.64.0"
-    ],
-    "React-Core/CoreModulesHeaders": [
-      "0.64.0"
-    ],
-    "React-RCTImage": [
-      "0.64.0"
-    ],
-    "ReactCommon/turbomodule/core": [
-      "0.64.0"
-    ],
-    "React-jsi": [
-      "0.64.0"
-    ]
+    "FBReactNativeSpec": ["0.64.0"],
+    "RCT-Folly": ["2020.01.13.00"],
+    "RCTTypeSafety": ["0.64.0"],
+    "React-Core/CoreModulesHeaders": ["0.64.0"],
+    "React-RCTImage": ["0.64.0"],
+    "ReactCommon/turbomodule/core": ["0.64.0"],
+    "React-jsi": ["0.64.0"]
   }
 }

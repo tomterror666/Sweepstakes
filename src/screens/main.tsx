@@ -1,59 +1,81 @@
 // @ts-ignore
-import React, { useCallback, useEffect, useState } from 'react';
-import { SafeAreaView, TouchableOpacity, Text, View, } from 'react-native';
-import { Info } from '../views/Info';
-import { DigitalClock } from '../views/DigitalClock';
-import { readResults } from '../requests/read-results';
-import { Lottory } from '../models/lottory';
-import { UIActivityIndicator } from 'react-native-indicators';
+import React, { useEffect } from "react";
+import { SafeAreaView, TouchableOpacity, Text, View } from "react-native";
+import { Info } from "../views/Info";
+import { DigitalClock } from "../views/DigitalClock";
+import { UIActivityIndicator } from "react-native-indicators";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/configureStore";
+import { readResults } from "../actions/read-results";
+import { readMyTips } from "../actions/read-my-tips";
 
 export function Main({ navigation }) {
-
-  const [allNumbers, setAllNumbers] = useState(new Lottory);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const getNumbers = useCallback(async (year) => {
-    setIsLoading(true);
-
-    const numbers: Lottory = await readResults(year);
-
-    setIsLoading(false);
-    setAllNumbers(numbers);
-  }, [])
+  const allNumbers = useSelector(
+    (state: RootState) => state.getAllNumbersReducer
+  );
+  const myTips = useSelector((state: RootState) => state.getTipsReducer);
+  const dispatch = useDispatch();
+  const getAllNumbers = () => dispatch(readResults(2021));
+  const readTips = () => dispatch(readMyTips());
 
   useEffect(() => {
-    getNumbers(2010);
+    readTips();
+    getAllNumbers();
   }, []);
 
   return (
-    <SafeAreaView style={{
-      flex: 1,
-      flexDirection: "column"
-    }}>
-      {isLoading ?
+    <SafeAreaView
+      style={{
+        flex: 1,
+        flexDirection: "column",
+      }}
+    >
+      {allNumbers.numberOfYears == 0 ? (
         <>
-          <UIActivityIndicator color={'#f44'} count={16} size={32} />
-        </> :
+          <UIActivityIndicator color={"#f44"} count={16} size={32} />
+        </>
+      ) : (
         <>
           <DigitalClock />
-          <Info style={{ backgroundColor: "#eee" }} />
+          <Info
+            tips={myTips}
+            lottory={allNumbers}
+            style={{ backgroundColor: "#eee" }}
+          />
         </>
-      }
+      )}
       <TouchableOpacity
-        style={{backgroundColor: "#7f7", flexDirection: "column", height: 44, textColor: '#fff' }}
-        onPress={() => { console.log('adf'); navigation.navigate('My Tips')}}>
-          <View style={{ flex: 1, }} />
-          <Text style={{ textAlign: 'center' }}>My Tips</Text>
-          <View style={{ flex: 1, }} />
-        </TouchableOpacity>
-        <TouchableOpacity
-        style={{backgroundColor: "#7f7", flexDirection: "column", height: 44, textColor: '#fff' }}
-        onPress={() => { console.log('adf'); navigation.navigate('My Wins')}}>
-          <View style={{ flex: 1, }} />
-          <Text style={{ textAlign: 'center' }}>My Wins</Text>
-          <View style={{ flex: 1, }} />
-        </TouchableOpacity>
-        <View style={{ flex: 1, backgroundColor: "#77f" }} />
+        style={{
+          backgroundColor: "#7f7",
+          flexDirection: "column",
+          height: 44,
+          textColor: "#fff",
+        }}
+        onPress={() => {
+          navigation.navigate("My Tips");
+        }}
+      >
+        <View style={{ flex: 1 }} />
+        <Text style={{ textAlign: "center" }}>My Tips</Text>
+        <View style={{ flex: 1 }} />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{
+          backgroundColor: "#7f7",
+          flexDirection: "column",
+          height: 44,
+          textColor: "#fff",
+        }}
+        onPress={() => {
+          console.log("adf");
+          navigation.navigate("My Wins");
+        }}
+      >
+        <View style={{ flex: 1 }} />
+        <Text style={{ textAlign: "center" }}>My Wins</Text>
+        <View style={{ flex: 1 }} />
+      </TouchableOpacity>
+      <View style={{ flex: 1, backgroundColor: "#77f" }} />
     </SafeAreaView>
   );
 }

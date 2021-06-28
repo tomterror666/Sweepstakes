@@ -25,10 +25,15 @@ export class Tip {
     this.superNumber = !another ? null : another.superNumber;
   }
 
-  static constructTip(numbers: number[], superNumber: number, startDate: Date = new Date(), duration: number = 28): Tip {
+  static constructTip(
+    numbers: number[],
+    superNumber: number,
+    startDate: Date = new Date(),
+    duration: number = 28
+  ): Tip {
     const newTip = new Tip(null);
 
-    numbers.sort((a: number, b: number) => a > b);
+    numbers.sort((a: number, b: number) => a - b);
 
     newTip.startDate = startDate;
     newTip.duration = duration;
@@ -44,12 +49,26 @@ export class Tip {
     return newTip;
   }
 
-  isWinning = (entry: LottoEntry): boolean => {
-    return this.numberOne === entry.value ||
-           this.numberTwo === entry.value ||
-           this.numberThree === entry.value ||
-           this.numberFour === entry.value ||
-           this.numberFife === entry.value ||
-           this.numberSix === entry.value;
-  }
+  isEqual = (other: Tip): boolean => {
+    return (
+      this.startDate === other.startDate &&
+      this.duration === other.duration &&
+      this.numberOne === other.numberOne &&
+      this.numberTwo === other.numberTwo &&
+      this.numberThree === other.numberThree &&
+      this.numberFour === other.numberFour &&
+      this.numberFife === other.numberFife &&
+      this.numberSix === other.numberSix &&
+      this.additionalNumber === other.additionalNumber &&
+      this.superNumber === other.superNumber
+    );
+  };
+
+  isWinning = (entry: LottoEntry): boolean =>
+    this.numberOne === entry.value ||
+    this.numberTwo === entry.value ||
+    this.numberThree === entry.value ||
+    this.numberFour === entry.value ||
+    this.numberFife === entry.value ||
+    this.numberSix === entry.value;
 }

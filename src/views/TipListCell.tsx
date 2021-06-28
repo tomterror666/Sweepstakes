@@ -1,23 +1,30 @@
 // @ts-ignore
-import React from 'react';
-import { StyleSheet, ViewStyle, TextStyle, Text, View, TouchableOpacity } from 'react-native';
-import { Tip } from '../models/tip';
-import { getFormattedDateString } from '../utils/get-formatted-date-string';
+import React from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { Tip } from "../models/tip";
+import { getFormattedDateString } from "../utils/get-formatted-date-string";
+import { removeATip } from "../actions/remove-a-tip";
+import { useDispatch } from "react-redux";
 
 interface IProps {
   numberOfTip?: number;
   tip: Tip;
-  removeTip: (tip: Tip) => void;
-};
+}
 
-export function TipListCell({ numberOfTip = 1, tip, removeTip }: IProps) {
-  console.log(777, numberOfTip);
+export function TipListCell({ numberOfTip = 1, tip }: IProps) {
+  const dispatch = useDispatch();
+
   return (
     <>
       <View style={styles.container}>
         <View style={styles.nameContainer}>
           <Text style={styles.nameText}>{numberOfTip}.Tip</Text>
-          <TouchableOpacity style={styles.removeButton} onPress={() => {removeTip(tip)}}>
+          <TouchableOpacity
+            style={styles.removeButton}
+            onPress={() => {
+              dispatch(removeATip(tip));
+            }}
+          >
             <Text style={styles.removeButtonText}>x</Text>
           </TouchableOpacity>
         </View>
@@ -36,7 +43,9 @@ export function TipListCell({ numberOfTip = 1, tip, removeTip }: IProps) {
         </View>
         <View style={styles.tipContainer}>
           <Text style={styles.introText}>Erstellt am:</Text>
-          <Text style={styles.numberText}>{getFormattedDateString(tip.startDate.toString())}</Text>
+          <Text style={styles.numberText}>
+            {getFormattedDateString(tip.startDate.toString())}
+          </Text>
         </View>
         <View style={styles.tipContainer}>
           <Text style={styles.introText}>Gültigkeitsdauer:</Text>
@@ -45,37 +54,39 @@ export function TipListCell({ numberOfTip = 1, tip, removeTip }: IProps) {
       </View>
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'flex-start',
-    backgroundColor: '#eee',
+    alignItems: "flex-start",
+    backgroundColor: "#eee",
   },
   nameContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   tipContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    alignItems: "flex-start",
   },
   nameText: {
     flex: 1,
-    fontWeight: '800',
+    fontWeight: "800",
     fontSize: 20,
   },
   removeButton: {
     width: 30,
     height: 30,
     borderRadius: 15,
-    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: "lightgrey",
+    backgroundColor: "transparent",
   },
   removeButtonText: {
-    margin: 4,
-    textAlign: 'center',
+    margin: 3,
+    textAlign: "center",
   },
   introText: {
-    fontWeight: '600',
+    fontWeight: "600",
     fontSize: 16,
   },
   numberText: {

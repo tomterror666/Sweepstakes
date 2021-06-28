@@ -1,17 +1,20 @@
 export const WinLevels = {
-  NOTHING: 'nothing',
-  TWO_WITH_SUPER: 'twoWithSuper',
-  THREE: 'three',
-  THREE_WITH_SUPER: 'threeWithSuperr',
-  FOUR: 'four',
-  FOUR_WITH_SUPER: 'fourWithSuper',
-  FIVE: 'five',
-  FIVE_WITH_SUPER: 'fifeWithSuper',
-  SIX: 'six',
-  JACKPOT: 'jackpot'
-}
+  NOTHING: "nothing",
+  TWO_WITH_SUPER: "twoWithSuper",
+  THREE: "three",
+  THREE_WITH_SUPER: "threeWithSuperr",
+  FOUR: "four",
+  FOUR_WITH_SUPER: "fourWithSuper",
+  FIVE: "five",
+  FIVE_WITH_SUPER: "fifeWithSuper",
+  SIX: "six",
+  JACKPOT: "jackpot",
+};
 
-export const winLevelFromNumber = (number: number, hasSuperZahl: boolean):string => {
+export const winLevelFromNumber = (
+  number: number,
+  hasSuperZahl: boolean
+): string => {
   switch (number) {
     case 0:
     case 1:
@@ -29,4 +32,4 @@ export const winLevelFromNumber = (number: number, hasSuperZahl: boolean):string
     default:
       return WinLevels.NOTHING;
   }
-}
+};

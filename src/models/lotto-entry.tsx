@@ -13,15 +13,20 @@ export class LottoEntry {
     this.value = value;
     this.variable = variable;
 
-    this.type = variable.toLowerCase() === "superzahl" ? EntryTypes.Superzahl : 
-      (variable.toLowerCase() === "zusatzzahl" ? EntryTypes.Zusatzzahl : EntryTypes.Normal);
+    this.type =
+      variable.toLowerCase() === "superzahl"
+        ? EntryTypes.Superzahl
+        : variable.toLowerCase() === "zusatzzahl"
+        ? EntryTypes.Zusatzzahl
+        : EntryTypes.Normal;
   }
 
-  getEntryYear = ():number => {
-    return Number(this.date[6]) * 1000 + 
-           Number(this.date[7]) * 100 + 
-           Number(this.date[8]) * 10 + 
-           Number(this.date[9]);
+  getEntryYear = (): number => {
+    return (
+      Number(this.date[6]) * 1000 +
+      Number(this.date[7]) * 100 +
+      Number(this.date[8]) * 10 +
+      Number(this.date[9])
+    );
   };
-
 }

@@ -17,7 +17,7 @@ export class LottoDraw {
 
   addEntry = (entry: LottoEntry) => {
     this.dates.push(entry);
-  }
+  };
 
   checkTip = (tip: Tip): Win[] => {
     const wins: Win[] = [];
@@ -27,17 +27,19 @@ export class LottoDraw {
     const wednesdayWin = new Win(tip, this, DrawingDate.Wednesday);
 
     if (wednesdayWin.winLevel != WinLevels.NOTHING) {
+      wednesdayWin.winningTip = tip;
       wins.push(wednesdayWin);
     }
 
     const saturdayWin = new Win(tip, this, DrawingDate.Saturday);
 
     if (saturdayWin.winLevel != WinLevels.NOTHING) {
+      saturdayWin.winningTip = tip;
       wins.push(saturdayWin);
     }
-    
+
     return wins;
-  }
+  };
 
   buildDrawingDates = () => {
     const firstEntries: LottoEntry[] = [];
@@ -58,6 +60,5 @@ export class LottoDraw {
 
     this.wednesday = firstEntries;
     this.saturday = secondEntries;
-  }
-
+  };
 }
