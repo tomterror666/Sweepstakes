@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
+  Alert,
+  Platform,
 } from "react-native";
 import { Tip } from "../models/tip";
 import { Separator } from "../views/Separator";
@@ -62,24 +64,6 @@ export function AddTip({ navigation }) {
     return superNumber === value;
   };
 
-  /*const storeMyTip = async () => {
-    try {
-      const newTip = Tip.constructTip(tips, superNumber, startDate, duration);
-      const tipsJson = await AsyncStorage.getItem("myTips");
-      let currentTips: Tip[] = JSON.parse(tipsJson);
-
-      if (currentTips) {
-        currentTips.push(newTip);
-      } else {
-        currentTips = [newTip];
-      }
-
-      await AsyncStorage.setItem("myTips", JSON.stringify(currentTips));
-    } catch (error) {
-      console.log(error);
-    }
-  };*/
-
   const storeMyTip = () => {
     const newTip = Tip.constructTip(tips, superNumber, startDate, duration);
     dispatch(addATip(newTip));
@@ -91,30 +75,54 @@ export function AddTip({ navigation }) {
   };
 
   const askForValidPeriod = () => {
-    Prompt(
-      "Gültigkeit:",
-      "Wie lange ist der Tipp gültig?",
-      [
-        {
-          text: "Abbrechen",
-          onPress: () => {},
-          style: "cancel",
-        },
-        {
-          text: "Übernehmen",
-          onPress: (text) => {
-            setDuration(Number(text));
-            setTipFinished(tips.length === 6 && superNumber !== -1);
+    if (Platform.OS === "android") {
+      Prompt(
+        "Gültigkeit:",
+        "Wie lange ist der Tipp gültig?",
+        [
+          {
+            text: "Abbrechen",
+            onPress: () => {},
+            style: "cancel",
           },
-        },
-      ],
-      {
-        type: "numeric",
-        cancelable: true,
-        defaultValue: duration === -1 ? "" : `${duration}`,
-        placeholder: "Tage",
-      }
-    );
+          {
+            text: "Übernehmen",
+            onPress: (text) => {
+              setDuration(Number(text));
+              setTipFinished(tips.length === 6 && superNumber !== -1);
+            },
+          },
+        ],
+        {
+          type: "numeric",
+          cancelable: true,
+          defaultValue: duration === -1 ? "" : `${duration}`,
+          placeholder: "Tage",
+        }
+      );
+    } else {
+      Alert.prompt(
+        "Gültigkeit:",
+        "Wie lange ist der Tipp gültig?",
+        [
+          {
+            text: "Abbrechen",
+            onPress: () => {},
+            style: "cancel",
+          },
+          {
+            text: "Übernehmen",
+            onPress: (text) => {
+              setDuration(Number(text));
+              setTipFinished(tips.length === 6 && superNumber !== -1);
+            },
+          },
+        ],
+        "plain-text",
+        "0",
+        "numeric"
+      );
+    }
   };
 
   const askForStartDate = () => {

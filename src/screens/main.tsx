@@ -6,7 +6,7 @@ import { DigitalClock } from "../views/DigitalClock";
 import { UIActivityIndicator } from "react-native-indicators";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/configureStore";
-import { readResults } from "../actions/read-results";
+import { readLottery } from "../actions/read-lottery";
 import { readMyTips } from "../actions/read-my-tips";
 
 export function Main({ navigation }) {
@@ -15,7 +15,7 @@ export function Main({ navigation }) {
   );
   const myTips = useSelector((state: RootState) => state.getTipsReducer);
   const dispatch = useDispatch();
-  const getAllNumbers = () => dispatch(readResults(2021));
+  const getAllNumbers = () => dispatch(readLottery(2000));
   const readTips = () => dispatch(readMyTips());
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export function Main({ navigation }) {
         flexDirection: "column",
       }}
     >
-      {allNumbers.numberOfYears == 0 ? (
+      {allNumbers.numbers.numberOfYears == 0 ? (
         <>
           <UIActivityIndicator color={"#f44"} count={16} size={32} />
         </>
@@ -39,7 +39,7 @@ export function Main({ navigation }) {
           <DigitalClock />
           <Info
             tips={myTips}
-            lottory={allNumbers}
+            lottory={allNumbers.numbers}
             style={{ backgroundColor: "#eee" }}
           />
         </>

@@ -33,3 +33,29 @@ export const winLevelFromNumber = (
       return WinLevels.NOTHING;
   }
 };
+
+export const readableWinLevel = (level): string => {
+  switch (level) {
+    case WinLevels.TWO_WITH_SUPER:
+      return "Zweier mit Superzahl";
+    case WinLevels.THREE:
+      return "Dreier";
+    case WinLevels.THREE_WITH_SUPER:
+      return "Drieer mit Superzahl";
+    case WinLevels.FOUR:
+      return "Vierer";
+    case WinLevels.FOUR_WITH_SUPER:
+      return "Vierer mit Superzahl";
+    case WinLevels.FIVE:
+      return "Fünfer";
+    case WinLevels.FIVE_WITH_SUPER:
+      return "Fünfer mit Superzahl";
+    case WinLevels.SIX:
+      return "Sechser";
+    case WinLevels.JACKPOT:
+      return "JACKPOT!";
+    case WinLevels.NOTHING:
+    default:
+      return "Leider nichts gewonnen...";
+  }
+};

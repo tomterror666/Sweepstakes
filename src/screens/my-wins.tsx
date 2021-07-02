@@ -4,7 +4,7 @@ import { SafeAreaView, Text, View } from "react-native";
 import { WinList } from "../views/WinList";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/configureStore";
-import { readResults } from "../actions/read-results";
+import { readLottery } from "../actions/read-lottery";
 import { readMyTips } from "../actions/read-my-tips";
 import { Win } from "../models/win";
 
@@ -15,7 +15,7 @@ export function MyWins() {
   const myTips = useSelector((state: RootState) => state.getTipsReducer);
 
   const dispatch = useDispatch();
-  const getAllNumbers = () => dispatch(readResults(2021));
+  const getAllNumbers = () => dispatch(readLottery(2000));
   const readTips = () => dispatch(readMyTips());
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export function MyWins() {
     let myWins: Win[] = [];
 
     myTips.map((tip) => {
-      myWins.push(...allNumbers.checkTip(tip));
+      myWins.push(...allNumbers.numbers.checkTip(tip));
     });
 
     return myWins;
@@ -40,7 +40,7 @@ export function MyWins() {
         flexDirection: "column",
       }}
     >
-      {!allNumbers || allNumbers.currentAmount(myTips) == 0 ? (
+      {!allNumbers.numbers || allNumbers.numbers.currentAmount(myTips) == 0 ? (
         <Text>Nischt jewonnen...</Text>
       ) : (
         <WinList wins={allWins()} style={{ margin: 10 }} />

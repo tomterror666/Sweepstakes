@@ -2,7 +2,7 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Win } from "../models/win";
-import { getFormattedDateString } from "../utils/get-formatted-date-string";
+import { readableWinLevel } from "../constants/win-levels";
 
 interface IProps {
   numberOfWin?: number;
@@ -13,6 +13,10 @@ export function WinListCell({ numberOfWin = 1, win }: IProps) {
   const tip = win.winningTip;
 
   const isWinningNumber = (tipNumber: number): boolean => {
+    if (!win || !win.winningNumbers || win.winningNumbers.length === 0) {
+      return false;
+    }
+
     let isWinning = false;
 
     win.winningNumbers.map((entry) => {
@@ -29,6 +33,16 @@ export function WinListCell({ numberOfWin = 1, win }: IProps) {
       <View style={styles.container}>
         <View style={styles.nameContainer}>
           <Text style={styles.nameText}>{numberOfWin}. Win</Text>
+        </View>
+        <View style={styles.tipContainer}>
+          <Text style={styles.introText}>Datum:</Text>
+          <Text style={styles.numberText}>{win.winningNumbers[0].date}</Text>
+        </View>
+        <View style={styles.tipContainer}>
+          <Text style={styles.introText}>Type:</Text>
+          <Text style={styles.numberText}>
+            {readableWinLevel(win.winLevel)}
+          </Text>
         </View>
         <View style={styles.tipContainer}>
           <Text style={styles.introText}>Zahlen:</Text>
